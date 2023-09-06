@@ -6,7 +6,7 @@
                     <v-flex xs12 sm8 md4>
                         <v-card class="elevation-12">
                             <v-toolbar dark color="primary">
-                                <v-toolbar-title>{{isRegister ? stateObj.register.name : stateObj.login.name}} form</v-toolbar-title>
+                                <v-toolbar-title>{{isRegister ? stateObj.register.name : stateObj.login.name}}</v-toolbar-title>
                             </v-toolbar>
                             <v-card-text>
                                 <form ref="form" @submit.prevent="isRegister ? register() : login()">
@@ -75,11 +75,11 @@ export default {
             buttonDisabled: false,
             stateObj: {
                 register :{
-                    name: 'Register',
+                    name: 'Registrarse',
                     message: 'Ya tenes una cuenta? Login.'
                 },
                 login : {
-                    name: 'Login',
+                    name: 'Ingresar',
                     message: 'Registrate'
                 }
             }

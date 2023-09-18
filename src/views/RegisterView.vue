@@ -14,40 +14,37 @@
                                     <div class="red--text"> {{ errorMessage }}</div>
                                     <div class="green--text"> {{ successMessage }}</div>
                                     
-                                    <v-text-field
+                                    <v-text-field name="email" label="Email" type="email" placeholder="pepe@mail.com" required
                                         v-model="email"
-                                        name="email"
-                                        label="Email"
-                                        type="email"
-                                        placeholder="pepe@mail.com"
-                                        required
                                     ></v-text-field>
                                     
-                                    <v-text-field
+                                    <v-text-field label="Contraseña"
                                         v-model="password"
                                         name="password"
-                                        label="Password"
                                         type="password"
                                         required
                                     ></v-text-field>
                                     
-                                    <v-text-field v-if="isRegister"
+                                    <v-text-field label="Confirmar Contraseña" name="confirmPassword" type="password" placeholder="confirmar contraseña"
+                                        v-if="isRegister"
                                                   v-model="confirmPassword"
-                                                  name="confirmPassword"
-                                                  label="Confirmar Password"
-                                                  type="password"
-                                                  placeholder="cocnfirm password"
+                                                  
                                                   required
                                     ></v-text-field>
                                     
-                                    <v-btn type="submit" class="mt-4" color="primary" value="log in"
-                                           :disabled="buttonDisabled">
-                                        {{ isRegister ? stateObj.register.name : stateObj.login.name }}
-                                    </v-btn>
-                                    <div class="grey--text mt-4"
-                                         @click="isRegister = !isRegister;">
-                                        {{ toggleMessage }}
+                                    <div class="d-flex justify-end mt-4">
+                                        <v-btn type="button" class="me-2" color="primary"
+                                               @click="isRegister = !isRegister;">
+                                            {{ toggleMessage }}
+                                        </v-btn>
+                                        
+                                        <v-btn type="submit" color="primary" value="log in"
+                                               :disabled="buttonDisabled">
+                                            {{ isRegister ? stateObj.register.name : stateObj.login.name }}
+                                        </v-btn>
                                     </div>
+                                    
+                                    
                                 </form>
                             </v-card-text>
                         </v-card>
@@ -76,7 +73,7 @@ export default {
             stateObj: {
                 register :{
                     name: 'Registrarse',
-                    message: 'Ya tenes una cuenta? Login.'
+                    message: '¿Ya tenes una cuenta? Ingresá'
                 },
                 login : {
                     name: 'Ingresar',
@@ -87,12 +84,92 @@ export default {
     },
     
     methods: {
-        register () {
-        
+        clearMessages () {
+            this.successMessage = "";
+            this.errorMessage = "";
         },
         
-        login () {
+        login() {
+            
+            const { email, password } = this;
+            
+            this.buttonDisabled = true;
+            this.clearMessages();
+            
+            // Process Login
+            this.$axios.post(`${process.env.VUE_APP_API_URL}login`, {
+                    email,
+                    password,
+                },
+                {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then( (response) => {
+                
+                const data = response.data;
+                
+                // Load access token to localStorage
+                this._auth_login(data.accessToken);
+                
+                // Redirect user to home page
+                this.$router
+                    .push({ name: 'home' });
+                
+            }).catch( (errResponse) => {
+                
+                // Show error
+                this.errorMessage = errResponse.response.data.message;
+                
+            }).finally( () => {
+                
+                this.buttonDisabled = false;
+                
+            });
+        },
         
+        register() {
+            
+            // If the passwords are equals
+            if(this.password == this.confirmPassword){
+                
+                const { email, password } = this;
+                
+                this.buttonDisabled = true;
+                this.clearMessages();
+                
+                // Process Login
+                this.$axios.post(`${process.env.VUE_APP_API_URL}register`, {
+                        email,
+                        password,
+                    },
+                    {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }).then( (response) => {
+                    
+                    this.successMessage = response.data.message;
+                    
+                }).catch( (errResponse) => {
+                    
+                    // Show error
+                    this.errorMessage = errResponse.response.data.message;
+                    
+                }).finally( () => {
+                    
+                    // Clear vars
+                    this.isRegister = false;
+                    this.$refs.form.reset();
+                    this.buttonDisabled = false;
+                    
+                });
+                
+            } else {
+                this.errorMessage = "Las contraseñas no coinciden"
+            }
         }
     },
     

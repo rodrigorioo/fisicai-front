@@ -15,6 +15,7 @@ export default {
             errorMessage: "",
             successMessage: "",
             buttonDisabled: false,
+            formSended: false,
         };
     },
     
@@ -26,7 +27,36 @@ export default {
         
         forgotPassword() {
             
-            // TODO: Request for forgot password
+            const { email } = this;
+            
+            this.buttonDisabled = true;
+            this.clearMessages();
+            
+            // Process Login
+            this.$axios.post(`${process.env.VUE_APP_API_URL}forgot-password`, {
+                    email,
+                },
+                {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then( (response) => {
+                
+                this.successMessage = response.data.message;
+                this.formSended = true;
+                
+            }).catch( (errResponse) => {
+                
+                // Show error
+                this.errorMessage = errResponse.response.data.message;
+                
+            }).finally( () => {
+                
+                // Clear vars
+                this.buttonDisabled = false;
+                
+            });
         }
     },
 }
@@ -38,17 +68,19 @@ export default {
         <div class="red--text"> {{ errorMessage }}</div>
         <div class="green--text"> {{ successMessage }}</div>
         
-        <v-text-field name="email" label="Email" type="email" placeholder="pepe@mail.com" required
-                      v-model="email"
-        ></v-text-field>
-        
-        <div class="d-flex justify-end mt-4">
-            <v-btn type="submit" color="success" value="register"
-                   :disabled="buttonDisabled">
-                {{ stateObj.name }}
-            </v-btn>
+        <div
+            v-if="!formSended">
+            <v-text-field name="email" label="Email" type="email" placeholder="pepe@mail.com" required
+                          v-model="email"
+            ></v-text-field>
+            
+            <div class="d-flex justify-end mt-4">
+                <v-btn type="submit" color="success" value="register"
+                       :disabled="buttonDisabled">
+                    {{ stateObj.name }}
+                </v-btn>
+            </div>
         </div>
-    
     
     </form>
 </template>

@@ -14,8 +14,8 @@
                                     v-if="validCode"
                                     :code="code" />
                                 
-                                <div class="red--text"
-                                    v-else> {{ errorMessage }}</div>
+                                <v-alert type="error"
+                                    v-else>{{ errorMessage }}</v-alert>
                             </v-card-text>
                         </v-card>
                     

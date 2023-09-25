@@ -71,8 +71,8 @@ export default {
 <template>
     <form ref="form" @submit.prevent="login">
         
-        <div class="red--text"> {{ errorMessage }}</div>
-        <div class="green--text"> {{ successMessage }}</div>
+        <v-alert type="error" v-show="errorMessage !== ''">{{ errorMessage }}</v-alert>
+        <v-alert type="success" v-show="successMessage !== ''">{{ successMessage }}</v-alert>
         
         <v-text-field name="email" label="Email" type="email" placeholder="pepe@mail.com" required
                       v-model="email"></v-text-field>

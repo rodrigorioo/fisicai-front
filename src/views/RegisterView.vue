@@ -4,6 +4,11 @@
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
                     <v-flex xs12 sm8 md4>
+                        <div>
+                            <v-img class="mx-auto" max-width="200px" max-height="200px" contain
+                                   :src="require('@/assets/logo.png')" />
+                        </div>
+                        
                         <v-card class="elevation-12">
                             <v-toolbar dark color="primary">
                                 <v-toolbar-title>{{ stateObj[stateObjSelected].name }}</v-toolbar-title>

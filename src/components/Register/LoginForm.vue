@@ -1,6 +1,10 @@
 <script>
+import {authMixin} from "@/mixins/auth.mixin";
+
 export default {
     name: "LoginForm",
+    
+    mixins: [authMixin],
     
     props: {
         stateObj: {

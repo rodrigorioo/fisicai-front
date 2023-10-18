@@ -48,8 +48,12 @@
 
 <script>
 
+import {authMixin} from "@/mixins/auth.mixin";
+
 export default {
     name: "TheHeader",
+    
+    mixins: [authMixin],
 
     data: () => ({
         drawer: false,
@@ -59,6 +63,7 @@ export default {
     methods: {
 
         logout () {
+            this._auth_logout();
             this.$router.push({ name: 'login' });
         },
     },

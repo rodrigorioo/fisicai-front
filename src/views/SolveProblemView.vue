@@ -3,7 +3,7 @@
         <TheHeader />
 
         <v-main>
-        
+            <Problem />
         </v-main>
     </v-app>
 </template>
@@ -11,12 +11,14 @@
 <script>
 
 import TheHeader from "@/components/Layout/TheHeader.vue";
+import Problem from "@/components/Problem.vue";
 
 export default {
     name: 'SolveproblemView',
 
     components: {
         TheHeader,
+        Problem,
     },
 
 

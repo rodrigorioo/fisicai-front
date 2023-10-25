@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import RegisterView from "@/views/RegisterView.vue";
 import ChangePasswordForgottenView from "@/views/ChangePasswordForgottenView.vue";
 import SolveProblemView from "@/views/SolveProblemView.vue";
+import MyProblemsView from "@/views/MyProblemsView.vue";
 
 import {requiredLogin, requiredLogout} from "@/middleware/auth.middleware";
 
@@ -33,6 +34,15 @@ const routes = [
             requiredAuth: false,
         },
     },
+    ,
+    {
+        path: '/mis-problemas',
+        name: 'mis-problemas',
+        component: MyProblemsView,
+        meta: {
+            requiredAuth: true,
+        }
+    }
 ];
 
 const router = new VueRouter({

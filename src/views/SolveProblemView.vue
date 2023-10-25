@@ -11,7 +11,7 @@
 <script>
 
 import TheHeader from "@/components/Layout/TheHeader.vue";
-import Problem from "@/components/Problem.vue";
+import Problem from "@/components/Problems/Problem.vue";
 
 export default {
     name: 'SolveproblemView',

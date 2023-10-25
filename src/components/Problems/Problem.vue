@@ -250,9 +250,9 @@ export default {
             })
                 .then( (response) => {
 
-                    this.data = response.data.data;
-                    this.requested = response.data.requested;
-                    this.resolution = response.data.resolution;
+                    // this.data = response.data.data;
+                    // this.requested = response.data.requested;
+                    // this.resolution = response.data.resolution;
 
                 })
                 .catch( (errResponse) => {
@@ -293,9 +293,9 @@ export default {
             })
                 .then( (response) => {
 
-                    this.data = response.data.data;
-                    this.requested = response.data.requested;
-                    this.resolution = response.data.resolution;
+                    // this.data = response.data.data;
+                    // this.requested = response.data.requested;
+                    // this.resolution = response.data.resolution;
 
                 })
                 .catch( (errResponse) => {

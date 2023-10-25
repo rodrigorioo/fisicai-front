@@ -248,7 +248,7 @@ export default {
                     'Content-Type': 'application/json'
                 }
             })
-                .then( (response) => {
+                .then( () => {
 
                     // this.data = response.data.data;
                     // this.requested = response.data.requested;
@@ -291,7 +291,7 @@ export default {
                     'Content-Type': 'application/json'
                 }
             })
-                .then( (response) => {
+                .then( () => {
 
                     // this.data = response.data.data;
                     // this.requested = response.data.requested;

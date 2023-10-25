@@ -67,7 +67,7 @@
 <script>
 
 import TheHeader from "@/components/Layout/TheHeader.vue";
-import DialogProblem from "@/components/DialogProblem.vue";
+import DialogProblem from "@/components/Problems/DialogProblem.vue";
 
 export default {
     name: "MyProblemsView",

@@ -34,7 +34,6 @@ const routes = [
             requiredAuth: false,
         },
     },
-    ,
     {
         path: '/mis-problemas',
         name: 'mis-problemas',

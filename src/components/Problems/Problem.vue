@@ -2,6 +2,10 @@
     <v-container>
         <v-row>
             <v-col cols="12">
+                <div class="text-center">
+                    <v-img class="mx-auto" max-width="200px" max-height="200px" contain
+                           :src="require('@/assets/logo.png')" />
+                </div>
                 <h1 class="display-2 font-weight-bold mb-3 text-center">FisicAI</h1>
                 <h3 class="display-1 font-weight-light mb-3 text-center">Dejá que una IA resuelva tus ejercicios de física 😎</h3>
             </v-col>
@@ -64,10 +68,10 @@
 
                             <v-col cols="12" sm="6">
                             
-<!--                                <Resolution-->
-<!--                                    :resolution="[]"-->
-<!--                                    :buttonDisabled="button_disabled"-->
-<!--                                    @resolveProblem="resolveProblem" />-->
+                                <Resolution
+                                    :resolution="[]"
+                                    :buttonDisabled="button_disabled"
+                                    @resolveProblem="resolveProblem" />
 
                             </v-col>
 
@@ -90,10 +94,11 @@
 <script>
 
 import ProblemData from "@/components/Problems/ProblemData.vue";
+import Resolution from "@/components/Problems/Resolution.vue";
 
 export default {
     name: "ProblemComponent",
-    components: {ProblemData},
+    components: {ProblemData, Resolution},
 
     data: () => ({
         problem: "",

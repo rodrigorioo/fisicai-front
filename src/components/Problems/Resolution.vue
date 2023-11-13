@@ -1,12 +1,8 @@
 <script>
 export default {
     name: "ResolutionComponent",
-
+    
     props: {
-        resolution: {
-            type: Array,
-            default: () => [],
-        },
         buttonDisabled: {
             type: Boolean,
             default: false,
@@ -18,6 +14,12 @@ export default {
             return word.charAt(0).toUpperCase() + word.slice(1);
         },
     },
+    
+    computed: {
+        resolution () {
+            return this.$store.getters.resolution;
+        },
+    }
 }
 </script>
 

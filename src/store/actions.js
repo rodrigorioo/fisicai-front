@@ -9,6 +9,18 @@ export default {
         });
     },
 
+    async processResponseSolveProblem (context, response) {
+
+        const data = await context.dispatch('getDataWithoutRequested', {
+            data: response.data.data,
+            requested: response.data.requested,
+        });
+
+        context.commit('data', data);
+        context.commit('requested', response.data.requested);
+        context.commit('resolution', response.data.resolution);
+    },
+
     solveProblem (context) {
 
         return new Promise( (resolve, reject) => {
@@ -29,14 +41,7 @@ export default {
             })
                 .then( async (response) => {
 
-                    const data = await context.dispatch('getDataWithoutRequested', {
-                        data: response.data.data,
-                        requested: response.data.requested,
-                    });
-
-                    context.commit('data', data);
-                    context.commit('requested', response.data.requested);
-                    context.commit('resolution', response.data.resolution);
+                    await context.dispatch('processResponseSolveProblem', response);
 
                     resolve(response);
 
@@ -70,14 +75,9 @@ export default {
                     'Content-Type': 'application/json'
                 }
             })
-                .then( (response) => {
+                .then( async (response) => {
 
-                    context.commit('data', context.dispatch('getDataWithoutRequested', {
-                        data: response.data.data,
-                        requested: response.data.requested,
-                    }));
-                    context.commit('requested', response.data.requested);
-                    context.commit('resolution', response.data.resolution);
+                    await context.dispatch('processResponseSolveProblem', response);
 
                     resolve(response);
 

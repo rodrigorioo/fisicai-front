@@ -43,6 +43,12 @@ export default {
         </v-col>
         
         <v-col cols="12">
+            <v-alert border="bottom" colored-border type="warning" elevation="2">
+                La solución de los datos solicitados se pueden llegar a mostrar con una unidad distinta a la solicitada
+            </v-alert>
+        </v-col>
+        
+        <v-col cols="12">
             <v-btn elevation="2" color="success" dark large
                    :disabled="buttonDisabled"
                    @click="() => $emit('resolveProblem')">

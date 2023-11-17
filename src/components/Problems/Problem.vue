@@ -10,6 +10,10 @@
                 <v-alert outlined prominent shaped>
                     La aplicación está preparada para resolver problemas de MRU y MRUV. Para una mejor solución, trate de redactar el problema aclarando los datos que se necesitan obtener y los datos provistos
                 </v-alert>
+                
+                <v-alert type="warning" outlined prominent shaped>
+                    Para asegurar el entendimiento del problema, escriba las unidades abreviadas. Por ej: m/s, km/h, km/s, etc.
+                </v-alert>
             </v-col>
 
             <v-col cols="12">

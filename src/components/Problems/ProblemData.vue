@@ -7,6 +7,62 @@ export default {
         add_data: "",
         
         // Requested data for selection
+        requestedDataOptions: [
+            {
+                key: 'distancia',
+                name: 'Distancia',
+            },
+            {
+                key: 'velocidad',
+                name: 'Velocidad',
+            },
+            {
+                key: 'tiempo',
+                name: 'Tiempo',
+            },
+            {
+                key: 'velocidad',
+                name: 'Posición Inicial',
+            },
+            {
+                key: 'hora',
+                name: 'Hora',
+            },
+            
+            {
+                key: 'rapidez',
+                name: 'Rapidez',
+            },
+            {
+                key: 'velocidad_inicial',
+                name: 'Velocidad Inicial',
+            },
+            {
+                key: 'velocidad_final',
+                name: 'Velocidad Final',
+            },
+            {
+                key: 'tiempo_inicial',
+                name: 'Tiempo Inicial',
+            },
+            {
+                key: 'tiempo_final',
+                name: 'Tiempo Final',
+            },
+            {
+                key: 'posicion_final',
+                name: 'Posición Final',
+            },
+            {
+                key: 'posicion',
+                name: 'Posición',
+            },
+            {
+                key: 'aceleración',
+                name: 'Aceleración',
+            },
+        ],
+        
         problemData: {
             // MRU
             'distancia': ['posicion_inicial', 'velocidad', 'tiempo'],
@@ -101,10 +157,7 @@ export default {
         requested () {
             return this.$store.getters.requested;
         },
-        
-        requestedDataOptions () {
-            return Object.keys(this.problemData);
-        },
+
         availableDataToAdd () {
             
             return this.requested.reduce( (acc, elem) => { // Get all data from requested data
@@ -151,11 +204,11 @@ export default {
                        v-for="(requestedData, iRequestedData) in requested"
                        :key="iRequestedData">
                     
-                    <v-select label="Seleccione un dato"
-                              :value="requestedData"
-                              :items="requestedDataOptions"
-                                
-                              @change="(val) => selectRequestedData(iRequestedData, val)"></v-select>
+                    <v-autocomplete label="Seleccione un dato" item-value="key" item-text="name"
+                                    :value="requestedData"
+                                    :items="requestedDataOptions"
+                                    
+                                    @change="(val) => selectRequestedData(iRequestedData, val)"></v-autocomplete>
                 </v-col>
             </v-row>
         </v-col>

@@ -5,99 +5,6 @@ export default {
     data: () => ({
         dialog_add_data: "",
         add_data: "",
-        
-        // Requested data for selection
-        requestedDataOptions: [
-            {
-                key: 'distancia',
-                name: 'Distancia',
-            },
-            {
-                key: 'velocidad',
-                name: 'Velocidad',
-            },
-            {
-                key: 'tiempo',
-                name: 'Tiempo',
-            },
-            {
-                key: 'velocidad',
-                name: 'Posición Inicial',
-            },
-            {
-                key: 'hora',
-                name: 'Hora',
-            },
-            
-            {
-                key: 'rapidez',
-                name: 'Rapidez',
-            },
-            {
-                key: 'velocidad_inicial',
-                name: 'Velocidad Inicial',
-            },
-            {
-                key: 'velocidad_final',
-                name: 'Velocidad Final',
-            },
-            {
-                key: 'tiempo_inicial',
-                name: 'Tiempo Inicial',
-            },
-            {
-                key: 'tiempo_final',
-                name: 'Tiempo Final',
-            },
-            {
-                key: 'posicion_final',
-                name: 'Posición Final',
-            },
-            {
-                key: 'posicion',
-                name: 'Posición',
-            },
-            {
-                key: 'aceleración',
-                name: 'Aceleración',
-            },
-        ],
-        
-        problemData: {
-            // MRU
-            'distancia': ['posicion_inicial', 'velocidad', 'tiempo'],
-            'velocidad': ['distancia', 'posicion_inicial', 'tiempo', /* MRUV */ 'velocidad_inicial', 'aceleracion'],
-            'tiempo': ['distancia', 'posicion_inicial', 'velocidad', /* MRUV */ 'velocidad_inicial', 'aceleracion'],
-            'posicion_inicial': [],
-            'hora': ['tiempo'],
-            'rapidez': ['distancia', 'posicion_inicial', 'tiempo', /* MRUV */ 'velocidad_inicial', 'aceleracion'],
-            
-            // MRUV
-            'velocidad_inicial': [],
-            'velocidad_final': ['velocidad_inicial', 'aceleracion', 'tiempo'],
-            'tiempo_inicial': [],
-            'tiempo_final': [],
-            'posicion_final': ['posicion_inicial', 'velocidad_inicial', 'tiempo', 'aceleracion'],
-            'posicion': ['posicion_inicial', 'velocidad_inicial', 'tiempo', 'aceleracion'],
-            'aceleracion': ['velocidad', 'velocidad_inicial', 'tiempo', 'tiempo_inicial'],
-        },
-        unitsData: {
-            aceleracion: ['m/s2', 'km/s2', 'km/h2'],
-            
-            velocidad: ['m/s', 'km/s', 'km/h'],
-            velocidad_inicial: ['m/s', 'km/s', 'km/h'],
-            velocidad_final: ['m/s', 'km/s', 'km/h'],
-            
-            posicion: ['km', 'm', 'cm'],
-            posicion_inicial: ['km', 'm', 'cm'],
-            posicion_final: ['km', 'm', 'cm'],
-            
-            distancia: ['km', 'm', 'cm'],
-            
-            tiempo: ['min', 's', 'h'],
-            tiempo_inicial: ['min', 's', 'h'],
-            tiempo_final: ['min', 's', 'h'],
-        },
     }),
     
     methods: {
@@ -140,13 +47,11 @@ export default {
         },
         
         changeUnitData (value, iData) {
-            
             this.$store.commit('modifyData', {
                 iData,
                 type: 'unit',
                 value,
             });
-            
         }
     },
     
@@ -175,129 +80,154 @@ export default {
                     });
                     
                 });
-        }
+        },
+        
+        requestedDataOptions () {
+            return this.$store.getters.requestedDataOptions;
+        },
+        problemData () {
+            return this.$store.getters.problemData;
+        },
+        unitsData () {
+            return this.$store.getters.unitsData;
+        },
     },
 }
 </script>
 
 <template>
-    <v-row>
-        
-        <v-col cols="12">
+    <div>
+        <v-card class="mx-auto">
             
-            <div class="d-flex align-center justify-space-between">
-                <h4>Datos solicitados</h4>
-                
-                <v-btn class="mx-2" fab dark small color="success"
-                       @click="$store.commit('addRequestedData')"
-                        
-                        v-if="requested.length === 0">
-                    <v-icon dark>mdi-plus</v-icon>
-                </v-btn>
-            </div>
-        
-        </v-col>
-        
-        <v-col cols="12">
-            <v-row>
-                <v-col cols="12"
-                       v-for="(requestedData, iRequestedData) in requested"
-                       :key="iRequestedData">
+            <v-card-title>
+                <div class="d-flex align-center justify-space-between" style="width: 100%">
+                    <span>Datos solicitados</span>
                     
-                    <v-autocomplete label="Seleccione un dato" item-value="key" item-text="name"
-                                    :value="requestedData"
-                                    :items="requestedDataOptions"
-                                    
-                                    @change="(val) => selectRequestedData(iRequestedData, val)"></v-autocomplete>
-                </v-col>
-            </v-row>
-        </v-col>
-        
-        
-        <v-col cols="12">
-            <div class="d-flex align-center justify-space-between">
-                <h4>Datos obtenidos</h4>
+                    <v-btn class="mx-2" fab dark small color="success"
+                           @click="$store.commit('addRequestedData')"
+                           
+                           v-if="requested.length === 0">
+                        <v-icon dark>mdi-plus</v-icon>
+                    </v-btn>
+                </div>
+            </v-card-title>
+            
+            <v-card-text>
                 
-                <v-dialog width="500"
-                          v-model="dialog_add_data"
-                
-                    v-if="availableDataToAdd.length !== 0">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn class="mx-2" fab dark small color="success"
-                               v-bind="attrs"
-                               v-on="on">
-                            <v-icon dark>mdi-plus</v-icon>
-                        </v-btn>
-                    </template>
+                <v-row>
+                    <v-col cols="12">
+                        <v-row>
+                            <v-col cols="12"
+                                   v-for="(requestedData, iRequestedData) in requested"
+                                   :key="iRequestedData">
+                                
+                                <v-autocomplete label="Seleccione un dato" item-value="key" item-text="name"
+                                                :value="requestedData"
+                                                :items="requestedDataOptions"
+                                                
+                                                @change="(val) => selectRequestedData(iRequestedData, val)"></v-autocomplete>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
+        
+        <v-card class="mx-auto mt-5">
+            
+            <v-card-title>
+                <div class="d-flex align-center justify-space-between" style="width: 100%">
+                    <h4>Datos obtenidos</h4>
                     
-                    <v-card>
-                        <v-card-title class="text-h5 grey lighten-2">
-                            Agregar dato obtenido
-                        </v-card-title>
-                        
-                        <v-card-text>
-                            
-                            <v-container fluid>
-                                <v-row>
-                                    <v-col cols="12">
-                                        <v-select label="Selecciona un dato"
-                                                  :items="availableDataToAdd"
-                                                  v-model="add_data"></v-select>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-                        
-                        <v-divider></v-divider>
-                        
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="success" text
-                                   @click="addData">
-                                Agregar
+                    <v-dialog width="500"
+                              v-model="dialog_add_data"
+                              
+                              v-if="availableDataToAdd.length !== 0">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn class="mx-2" fab dark small color="success"
+                                   v-bind="attrs"
+                                   v-on="on">
+                                <v-icon dark>mdi-plus</v-icon>
                             </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
+                        </template>
+                        
+                        <v-card>
+                            <v-card-title class="text-h5 grey lighten-2">
+                                Agregar dato obtenido
+                            </v-card-title>
+                            
+                            <v-card-text>
+                                
+                                <v-container fluid>
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <v-select label="Selecciona un dato"
+                                                      :items="availableDataToAdd"
+                                                      v-model="add_data"></v-select>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </v-card-text>
+                            
+                            <v-divider></v-divider>
+                            
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="success" text
+                                       @click="addData">
+                                    Agregar
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                
+                </div>
+            </v-card-title>
             
-            </div>
-        </v-col>
-        
-        <v-col cols="12">
-            <v-row>
-                <v-col cols="12"
-                       v-for="(data, iData) in data"
-                       :key="iData">
-                    <v-row>
-                        <v-col cols="12" sm="5">
-                            <v-text-field placeholder="30, 40, 1.5, etc"
-                                          @change.native="() => $store.commit('modifyData', {
+            <v-card-text>
+                
+                <v-row>
+                    
+                    <v-col cols="12">
+                        <v-row>
+                            <v-col cols="12"
+                                   v-for="(data, iData) in data"
+                                   :key="iData">
+                                <v-row>
+                                    <v-col cols="12" sm="5">
+                                        <v-text-field placeholder="30, 40, 1.5, etc"
+                                                      @change.native="() => $store.commit('modifyData', {
                                               iData,
                                               type: 'value',
                                               value: $event.target.value
                                           })"
-                                          :label="capitalizeWord(data.name)"
-                                          :value="data.value"></v-text-field>
-                        </v-col>
-                        
-                        <v-col cols="12" sm="5">
-                            <v-select label="Selecciona una unidad"
-                                      :items="unitsData[data.name]"
-                                      :value="data.unit"
-                                      @change="(val) => changeUnitData(val, iData)"></v-select>
-                        </v-col>
-                        
-                        <v-col cols="12" sm="2">
-                            <v-btn class="mx-2" fab dark small color="red"
-                                   @click="() => $store.commit('deleteData', iData)">
-                                <v-icon dark>mdi-delete</v-icon>
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-col>
-            </v-row>
-        </v-col>
-    </v-row>
+                                                      :label="capitalizeWord(data.name)"
+                                                      :value="data.value"></v-text-field>
+                                    </v-col>
+                                    
+                                    <v-col cols="12" sm="5">
+                                        <v-select label="Selecciona una unidad"
+                                                  :items="unitsData[data.name]"
+                                                  :value="data.unit"
+                                                  @change="(val) => changeUnitData(val, iData)"></v-select>
+                                    </v-col>
+                                    
+                                    <v-col cols="12" sm="2">
+                                        <v-btn class="mx-2" fab dark small color="red"
+                                               @click="() => $store.commit('deleteData', iData)">
+                                            <v-icon dark>mdi-delete</v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
+    </div>
+    
+    
 </template>
 
 <style scoped>

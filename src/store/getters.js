@@ -8,4 +8,14 @@ export default {
     resolution: (state) => {
         return state.resolution;
     },
+
+    requestedDataOptions: (state) => {
+        return state.requestedDataOptions;
+    },
+    problemData: (state) => {
+        return state.problemData;
+    },
+    unitsData: (state) => {
+        return state.unitsData;
+    },
 }

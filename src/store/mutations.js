@@ -36,4 +36,8 @@ export default {
     deleteData (state, iData) {
         state.data.splice(iData, 1);
     },
+
+    modifyResolution (state, {iResolution, type, value}) {
+        state.resolution[iResolution][type] = value;
+    },
 }

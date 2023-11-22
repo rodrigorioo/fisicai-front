@@ -52,7 +52,16 @@ export default {
                 type: 'unit',
                 value,
             });
-        }
+        },
+        
+        getLabelForData(data) {
+          
+            const dataFind = this.requestedDataOptions.find( (el) => {
+                return el.key === data.name;
+            });
+            
+            return this.capitalizeWord(dataFind.name);
+        },
     },
     
     computed: {
@@ -101,7 +110,7 @@ export default {
             
             <v-card-title>
                 <div class="d-flex align-center justify-space-between" style="width: 100%">
-                    <span>Datos solicitados</span>
+                    <h4>Datos solicitados</h4>
                     
                     <v-btn class="mx-2" fab dark small color="success"
                            @click="$store.commit('addRequestedData')"
@@ -201,7 +210,7 @@ export default {
                                               type: 'value',
                                               value: $event.target.value
                                           })"
-                                                      :label="capitalizeWord(data.name)"
+                                                      :label="getLabelForData(data)"
                                                       :value="data.value"></v-text-field>
                                     </v-col>
                                     

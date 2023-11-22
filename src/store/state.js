@@ -21,7 +21,7 @@ export default {
             name: 'Tiempo',
         },
         {
-            key: 'velocidad',
+            key: 'posicion_inicial',
             name: 'Posición Inicial',
         },
         {
@@ -58,7 +58,7 @@ export default {
             name: 'Posición',
         },
         {
-            key: 'aceleración',
+            key: 'aceleracion',
             name: 'Aceleración',
         },
     ],

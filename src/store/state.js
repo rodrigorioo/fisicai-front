@@ -9,37 +9,36 @@ export default {
     // Requested data for selection
     requestedDataOptions: [
         {
+            key: 'aceleracion',
+            name: 'Aceleración',
+        },
+        {
             key: 'distancia',
             name: 'Distancia',
         },
         {
-            key: 'velocidad',
-            name: 'Velocidad',
+            key: 'hora',
+            name: 'Hora',
         },
         {
-            key: 'tiempo',
-            name: 'Tiempo',
+            key: 'posicion',
+            name: 'Posición',
         },
         {
             key: 'posicion_inicial',
             name: 'Posición Inicial',
         },
         {
-            key: 'hora',
-            name: 'Hora',
+            key: 'posicion_final',
+            name: 'Posición Final',
         },
-
         {
             key: 'rapidez',
             name: 'Rapidez',
         },
         {
-            key: 'velocidad_inicial',
-            name: 'Velocidad Inicial',
-        },
-        {
-            key: 'velocidad_final',
-            name: 'Velocidad Final',
+            key: 'tiempo',
+            name: 'Tiempo',
         },
         {
             key: 'tiempo_inicial',
@@ -50,16 +49,16 @@ export default {
             name: 'Tiempo Final',
         },
         {
-            key: 'posicion_final',
-            name: 'Posición Final',
+            key: 'velocidad',
+            name: 'Velocidad',
         },
         {
-            key: 'posicion',
-            name: 'Posición',
+            key: 'velocidad_inicial',
+            name: 'Velocidad Inicial',
         },
         {
-            key: 'aceleracion',
-            name: 'Aceleración',
+            key: 'velocidad_final',
+            name: 'Velocidad Final',
         },
     ],
     problemData: {

@@ -27,23 +27,27 @@ export default {
         
         selectRequestedData (iRequestedData, value) {
             
-            const data = this.problemData[value].reduce( (acc, elem) => {
+            const problemData = this.problemData[value];
+            
+            if(problemData && problemData !== "") {
+                const data = problemData.reduce( (acc, elem) => {
+                    
+                    acc.push({
+                        name: elem,
+                        unit: this.getUnit(elem),
+                        value: "",
+                    });
+                    
+                    return acc;
+                }, []);
                 
-                acc.push({
-                    name: elem,
-                    unit: this.getUnit(elem),
-                    value: "",
+                this.$store.commit('data', data);
+                
+                this.$store.commit('modifyRequestedData', {
+                    iRequestedData,
+                    value,
                 });
-                
-                return acc;
-            }, []);
-            
-            this.$store.commit('data', data);
-            
-            this.$store.commit('modifyRequestedData', {
-                iRequestedData,
-                value,
-            })
+            }
         },
         
         changeUnitData (value, iData) {

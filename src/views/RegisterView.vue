@@ -9,6 +9,10 @@
                                    :src="require('@/assets/logo.png')" />
                         </div>
                         
+                        <v-alert border="top" colored-border type="info" elevation="2">
+                            La aplicación sólo está preparada para resolver problemas de MRU y MRUV (Correspondientes a Física I).
+                        </v-alert>
+                        
                         <v-card class="elevation-12">
                             <v-toolbar dark color="primary">
                                 <v-toolbar-title>{{ stateObj[stateObjSelected].name }}</v-toolbar-title>

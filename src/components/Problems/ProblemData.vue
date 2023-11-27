@@ -67,8 +67,16 @@ export default {
             return this.capitalizeWord(dataFind.name);
         },
         
+        isNumber(e) {
+            const keysAllowed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ',', 'Backspace'];
+            const keyPressed = e.key;
+            
+            if (!keysAllowed.includes(keyPressed)) {
+                e.preventDefault()
+            }
+        },
+        
         formatNumber(e) {
-
             let value = e.target.value;
             
             value = value.replace(',', '.');
@@ -218,6 +226,7 @@ export default {
                                 <v-row>
                                     <v-col cols="12" sm="5">
                                         <v-text-field placeholder="30, 40, 1.5, etc"
+                                                      @keydown="isNumber"
                                                       @keyup="formatNumber"
                                                       @change.native="() => $store.commit('modifyData', {
                                               iData,

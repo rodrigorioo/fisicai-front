@@ -66,6 +66,15 @@ export default {
             
             return this.capitalizeWord(dataFind.name);
         },
+        
+        formatNumber(e) {
+
+            let value = e.target.value;
+            
+            value = value.replace(',', '.');
+            
+            e.target.value = value;
+        },
     },
     
     computed: {
@@ -209,6 +218,7 @@ export default {
                                 <v-row>
                                     <v-col cols="12" sm="5">
                                         <v-text-field placeholder="30, 40, 1.5, etc"
+                                                      @keyup="formatNumber"
                                                       @change.native="() => $store.commit('modifyData', {
                                               iData,
                                               type: 'value',

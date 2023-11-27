@@ -12,7 +12,7 @@
                 </v-alert>
                 
                 <v-alert type="warning" outlined prominent shaped>
-                    Para asegurar el entendimiento del problema, escriba las unidades abreviadas. Por ej: m/s, km/h, km/s, etc.
+                    Para asegurar el entendimiento del problema, escriba las unidades abreviadas, por ej: m/s, km/h, km/s, etc. y escriba la separación de decimales con un punto. Por ej: 20.5m, 30.55km, 20.25m/s
                 </v-alert>
             </v-col>
 
@@ -75,7 +75,6 @@
                             <v-col cols="12" sm="6">
                             
                                 <Resolution
-                                    :resolution="[]"
                                     :buttonDisabled="button_disabled"
                                     @resolveProblem="resolveProblem" />
 

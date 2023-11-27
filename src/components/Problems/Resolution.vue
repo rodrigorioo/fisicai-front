@@ -145,15 +145,12 @@ export default {
                                  v-for="(resolutionData, iResolutionData) in resolution"
                                  :key="iResolutionData">
                         <v-list-item-content>
-<!--                            <v-list-item-title>-->
-<!--                                {{ capitalizeWord(resolutionData.name) }}: {{ resolutionData.value }} {{ resolutionData.unit }}-->
-<!--                            </v-list-item-title>-->
                             <v-col cols="12">
                                 <v-row>
                                     <v-col cols="12" sm="6">
                                         <v-text-field placeholder="30, 40, 1.5, etc" readonly
                                                       :label="capitalizeWord(resolutionData.name)"
-                                                      :value="resolutionData.value"></v-text-field>
+                                                      :value="(resolutionData.value % 1 !== 0) ? resolutionData.value.toFixed(2) : resolutionData.value"></v-text-field>
                                     </v-col>
                                     
                                     <v-col cols="12" sm="6">
